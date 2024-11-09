@@ -1,0 +1,118 @@
+/* Style global */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #8e1878;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+/* Conteneur principal de la page d'accueil */
+.home-container {
+    width: 80%;
+    max-width: 600px;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+/* Titre */
+h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #007bff;
+}
+
+/* Texte de présentation */
+p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+/* Bouton d'accès */
+button {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+}
+
+/* Lien dans le bouton */
+button a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Animation du bouton */
+.animated-button {
+    position: relative;
+    display: inline-block;
+}
+
+.animated-button:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    transition: transform 0.3s ease;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    pointer-events: none;
+}
+
+.animated-button:hover:after {
+    transform: scaleX(1);
+    transform-origin: top left;
+}
+
+/* Section d'image d'illustration (si nécessaire) */
+.home-container img {
+    max-width: 100%;
+    height: auto;
+    opacity: 0.7;
+    margin-top: 30px;
+}
+
+/* Effet de fond dynamique pour l'animation */
+.home-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 105, 180, 0.8), rgba(255, 105, 180, 0.4));
+    z-index: -1;
+    animation: background-animation 5s ease infinite;
+}
+
+@keyframes background-animation {
+    0% { background: linear-gradient(45deg, rgba(255, 105, 180, 0.8), rgba(255, 105, 180, 0.4)); }
+    50% { background: linear-gradient(45deg, rgba(30, 144, 255, 0.8), rgba(30, 144, 255, 0.4)); }
+    100% { background: linear-gradient(45deg, rgba(255, 105, 180, 0.8), rgba(255, 105, 180, 0.4)); }
+}
+
+/* S'assurer que le bouton est centré avec l'animation */
+#go-to-todo {
+    margin-top: 40px;
+}
