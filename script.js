@@ -197,4 +197,147 @@ function addSubTodoPrompt(todoIndex) {
     showTodos();
 }
 
+
+// Variable pour garder la trace du filtre actif
+let currentFilter = "all";
+
+// Écouteurs pour les boutons de filtrage
+document.querySelectorAll(".filter-btn").forEach(button => {
+    button.addEventListener("click", (e) => {
+        // Retire la classe 'active' de tous les boutons
+        document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
+        
+        // Ajoute la classe 'active' au bouton cliqué
+        e.target.classList.add("active");
+        
+        // Définit le filtre actif
+        currentFilter = e.target.dataset.filter;
+        
+        // Recharge les tâches en appliquant le filtre
+        showTodos();
+    });
+});
+
+// Fonction mise à jour showTodos() avec filtrage
+function showTodos() {
+    todosHtml.innerHTML = '';
+    todoJson.forEach((todo, index) => {
+        // Filtre les tâches selon le filtre actuel
+        if (currentFilter === "completed" && todo.status !== "completed") return;
+        if (currentFilter === "pending" && todo.status !== "pending") return;
+
+        const todoItem = document.createElement('li');
+        todoItem.classList.add('todo-item');
+
+        const checkContainer = document.createElement('div');
+        checkContainer.classList.add('check-container');
+        checkContainer.innerHTML = '<i class="fa fa-check" style="display:none;"></i>'; 
+
+        checkContainer.onclick = () => {
+            todoJson[index].status = todoJson[index].status === "completed" ? "pending" : "completed";
+            localStorage.setItem("todos", JSON.stringify(todoJson));
+            showTodos();
+        };
+
+        if (todo.status === "completed") {
+            checkContainer.classList.add('checked');
+            checkContainer.querySelector('i').style.display = 'block'; 
+            todoItem.classList.add('completed'); 
+        }
+
+        const todoText = document.createElement('span');
+        todoText.innerText = todo.name;
+
+        // Ajout des boutons et des sous-tâches
+        const addSubTodoButton = document.createElement('button');
+        addSubTodoButton.classList.add('add-subtodo-btn');
+        addSubTodoButton.innerHTML = 'Ajouter une sous-tâche';
+        addSubTodoButton.onclick = () => addSubTodoPrompt(index);
+
+        const deleteButton = document.createElement('button');
+        deleteButton.classList.add('delete-btn');
+        deleteButton.innerHTML = '<i class="fa fa-trash"></i>';
+        deleteButton.onclick = () => {
+            todoJson.splice(index, 1); 
+            localStorage.setItem("todos", JSON.stringify(todoJson));
+            showTodos();
+        };
+
+        const editButton = document.createElement('button');
+        editButton.classList.add('edit-btn');
+        editButton.innerHTML = '<i class="fa fa-edit"></i>';
+        editButton.onclick = () => {
+            const newTodoName = prompt('Modifier le nom de la tâche:', todo.name);
+            if (newTodoName) {
+                todoJson[index].name = newTodoName; 
+                localStorage.setItem("todos", JSON.stringify(todoJson));
+                showTodos();
+            }
+        };
+
+        todoItem.appendChild(checkContainer); 
+        todoItem.appendChild(todoText);
+        todoItem.appendChild(addSubTodoButton);
+        todoItem.appendChild(editButton); 
+        todoItem.appendChild(deleteButton); 
+
+        const subTodosContainer = document.createElement('ul');
+        subTodosContainer.classList.add('sub-todos');
+        todo.subTodos && todo.subTodos.forEach((subTodo, subIndex) => {
+            const subTodoItem = document.createElement('li');
+            subTodoItem.classList.add('sub-todo-item');
+
+            if (subTodo.status === 'completed') {
+                subTodoItem.classList.add('completed');
+            }
+
+            subTodoItem.innerHTML = 
+                `<span>${subTodo.name}</span>
+                 <input type="time" class="sub-todo-time" value="${subTodo.time}">
+                 <button class="validate-subtodo-btn">Valider</button>`;
+            
+            const validateButton = subTodoItem.querySelector('.validate-subtodo-btn');
+            validateButton.onclick = () => {
+                subTodo.status = 'completed';
+                localStorage.setItem("todos", JSON.stringify(todoJson));
+                showTodos();
+            };
+
+            const deleteSubTodoButton = document.createElement('button');
+            deleteSubTodoButton.classList.add('delete-subtodo-btn');
+            deleteSubTodoButton.innerHTML = '<i class="fa fa-trash"></i>';
+            deleteSubTodoButton.onclick = () => {
+                todo.subTodos.splice(subIndex, 1); 
+                localStorage.setItem("todos", JSON.stringify(todoJson));
+                showTodos();
+            };
+
+            const editSubTodoButton = document.createElement('button');
+            editSubTodoButton.classList.add('edit-subtodo-btn');
+            editSubTodoButton.innerHTML = '<i class="fa fa-edit"></i>';
+            editSubTodoButton.onclick = () => {
+                const newSubTodoName = prompt('Modifier le nom de la sous-tâche:', subTodo.name);
+                const newSubTodoTime = prompt('Modifier l’heure de la sous-tâche (HH:MM):', subTodo.time);
+
+                if (newSubTodoName) subTodo.name = newSubTodoName;
+                if (newSubTodoTime) subTodo.time = newSubTodoTime;
+
+                localStorage.setItem("todos", JSON.stringify(todoJson));
+                showTodos();
+            };
+
+            subTodoItem.appendChild(editSubTodoButton); 
+            subTodoItem.appendChild(deleteSubTodoButton); 
+            subTodosContainer.appendChild(subTodoItem);
+        });
+
+        todoItem.appendChild(subTodosContainer);
+        todosHtml.appendChild(todoItem);
+    });
+
+    // Affichage de l'image si aucune tâche
+    document.querySelector('.image-1').style.display = todoJson.length === 0 ? 'block' : 'none';
+}
+
 showTodos();
+
