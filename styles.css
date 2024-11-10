@@ -374,6 +374,7 @@ h2{
     background-color: #007bff;
     color: white;
     transition: background-color 0.3s;
+    margin-bottom: 15px;
 }
 
 .filter-btn:hover {
