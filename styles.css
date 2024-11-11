@@ -1,3 +1,5 @@
+/* ########## STYLE GLOBAL ########## */
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -11,9 +13,7 @@ body {
     text-align: center;
 }
 
-/* Home */
-
-/* #############################################################################*/
+/* ########## HOME ########## */
 
 .home-container {
     width: 80%;
@@ -25,7 +25,32 @@ body {
     color: #333;
 }
 
-/* #############################################################################*/
+.home-container img {
+    max-width: 100%;
+    height: auto;
+    opacity: 0.7;
+    margin-top: 30px;
+}
+
+.home-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 105, 180, 0.8), rgba(255, 105, 180, 0.4));
+    z-index: -1;
+    animation: background-animation 5s ease infinite;
+}
+
+@keyframes background-animation {
+    0% { background: linear-gradient(45deg, rgba(255, 105, 180, 0.8), rgba(255, 105, 180, 0.4)); }
+    50% { background: linear-gradient(45deg, rgba(30, 144, 255, 0.8), rgba(30, 144, 255, 0.4)); }
+    100% { background: linear-gradient(45deg, rgba(255, 105, 180, 0.8), rgba(255, 105, 180, 0.4)); }
+}
+
+/* ########## TITRES ET PARAGRAPHES ########## */
 
 h1 {
     font-size: 3rem;
@@ -33,14 +58,12 @@ h1 {
     color: #007bff;
 }
 
-/* #############################################################################*/
-
 p {
     font-size: 1.2rem;
     margin-bottom: 30px;
 }
 
-/* #############################################################################*/
+/* ########## BOUTONS ########## */
 
 button {
     padding: 15px 30px;
@@ -58,14 +81,12 @@ button:hover {
     transform: scale(1.1);
 }
 
-/* #############################################################################*/
-
 button a {
     color: white;
     text-decoration: none;
 }
 
-/* #############################################################################*/
+/* ########## ANIMATION DU BOUTONS ########## */
 
 .animated-button {
     position: relative;
@@ -92,38 +113,8 @@ button a {
     transform-origin: top left;
 }
 
-/* #############################################################################*/
+/* ########## CONTAINER DES TÂCHES ########## */
 
-.home-container img {
-    max-width: 100%;
-    height: auto;
-    opacity: 0.7;
-    margin-top: 30px;
-}
-
-/* #############################################################################*/
-
-.home-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, rgba(255, 105, 180, 0.8), rgba(255, 105, 180, 0.4));
-    z-index: -1;
-    animation: background-animation 5s ease infinite;
-}
-
-@keyframes background-animation {
-    0% { background: linear-gradient(45deg, rgba(255, 105, 180, 0.8), rgba(255, 105, 180, 0.4)); }
-    50% { background: linear-gradient(45deg, rgba(30, 144, 255, 0.8), rgba(30, 144, 255, 0.4)); }
-    100% { background: linear-gradient(45deg, rgba(255, 105, 180, 0.8), rgba(255, 105, 180, 0.4)); }
-}
-
-/* Index  */
-
-/* #############################################################################*/
 .container {
     width: 90%;
     max-width: 600px;
@@ -133,16 +124,6 @@ button a {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
-
-/* #############################################################################*/
-
-h1 {
-    color: #007bff;
-    font-size: 2em;
-    margin-bottom: 20px;
-}
-
-/* #############################################################################*/
 
 .input-container {
     display: flex;
@@ -174,7 +155,7 @@ h1 {
     background-color: #0056b3;
 }
 
-/* #############################################################################*/
+/* ########## LISTE DES TÂCHES ########## */
 
 .todos-container {
     text-align: left;
@@ -186,8 +167,6 @@ h1 {
     padding: 0;
     margin: 0;
 }
-
-/* #############################################################################*/
 
 .todo-item {
     display: flex;
@@ -202,7 +181,7 @@ h1 {
     border-bottom: none;
 }
 
-/* #############################################################################*/
+/* ########## CHECKBOX POUR TÂCHE ########## */
 
 .check-container {
     display: flex;
@@ -223,8 +202,6 @@ h1 {
     border-color: #28a745;
 }
 
-/* #############################################################################*/
-
 .check-container i {
     font-size: 16px;
     display: none;
@@ -234,21 +211,19 @@ h1 {
     display: inline;
 }
 
-/* #############################################################################*/
+/* ########## STYLE DES TÂCHES TERMINÉES ########## */
 
 .todo-item span {
     flex-grow: 1;
     font-size: 16px;
 }
 
-/* #############################################################################*/
-
 .completed {
     color: green;
     text-decoration: line-through;
 }
 
-/* #############################################################################*/
+/* ########## BOUTONS DE SOUS-TÂCHES ########## */
 
 .add-subtodo-btn {
     padding: 3px 8px;
@@ -261,7 +236,7 @@ h1 {
     font-size: 12px;
 }
 
-/* #############################################################################*/
+/* ########## BOUTONS D'ACTION ########## */
 
 .delete-btn,
 .delete-subtodo-btn {
@@ -286,7 +261,7 @@ h1 {
     font-size: 16px;
 }
 
-/* #############################################################################*/
+/* ########## LISTE DES SOUS-TÂCHES ########## */
 
 .sub-todos {
     list-style: none;
@@ -305,6 +280,8 @@ h1 {
     padding: 2px;
 }
 
+/* ########## BOUTON DE VALIDATION DES SOUS-TÂCHES ########## */
+
 .validate-subtodo-btn {
     background-color: #17a2b8;
     color: white;
@@ -316,7 +293,8 @@ h1 {
     margin-left: 5px;
 }
 
-/* Image par défaut */
+/* ########## IMAGE D'AUCUNE TACHE ########## */
+
 .image-1 {
     display: block;
     width: 100%;
@@ -325,10 +303,7 @@ h1 {
     opacity: 0.7;
 }
 
-
-
-
-/* #############################################################################*/
+/* ########## BOUTONS DE MODIFICATION ########## */
 
 .edit-btn,
 .edit-subtodo-btn {
@@ -353,15 +328,13 @@ h1 {
     font-size: 16px;
 }
 
+/* ########## FILTRE DES TÂCHES ########## */
+
 .filter-buttons {
     margin-bottom: 20px;
     text-align: center;
     background-color: #7a1167;
     margin-left: 40px;
-}
-
-h2{
-    color: #007bff;
 }
 
 .filter-btn {
@@ -382,7 +355,11 @@ h2{
 }
 
 .filter-btn.active {
-    background-color: #28a745; /* Met en évidence le bouton sélectionné */
+    background-color: #28a745;
 }
 
+/* ########## TITRE DES SECTIONS ########## */
 
+h2 {
+    color: #007bff;
+}
